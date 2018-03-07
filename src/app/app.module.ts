@@ -12,24 +12,30 @@ import {AngularFireStorageModule} from 'angularfire2/storage';
 import { ChartModule } from 'angular-highcharts';
 import { FireOrderComponent } from './components/fire-order/fire-order.component';
 import { CryptoChartComponent } from './components/crypto-chart/crypto-chart.component';
-
+import {GetPriceComponent} from './components/get-price/get-price.component';
+import {HttpClientModule} from '@angular/common/http';
+import {PRICESProvider} from './providers/prices.provider';
 
 @NgModule({
   declarations: [
     AppComponent,
     FireOrderComponent,
-    CryptoChartComponent
+    CryptoChartComponent,
+    GetPriceComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    HttpClientModule,
     AngularFireModule.initializeApp(environment.firebase), // imports firebase/app needed for everything
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features,
     AngularFireStorageModule, // imports firebase/storage only needed for storage features
     ChartModule
   ],
-  providers: [],
+  providers: [
+    PRICESProvider
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
