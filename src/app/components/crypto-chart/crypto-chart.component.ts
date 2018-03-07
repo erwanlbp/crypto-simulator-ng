@@ -11,38 +11,36 @@ import {Observable} from 'rxjs/Observable';
 export class CryptoChartComponent {
   private _coinSymbol: string;
   private _chart: Chart = new Chart();
-  private _prices$: Observable<any>;
   private _prices: any;
 
-  constructor(private _pricesProvider: PRICESProvider) {
-  }
+  constructor(private _pricesProvider: PRICESProvider) {}
 
   @Input()
   set coinSymbol(symbol: string) {
     if (symbol) {
       this._coinSymbol = symbol;
-    }
 
-    this._pricesProvider.getValues$(this._coinSymbol)
-      .subscribe(res => {
-        this._prices = this.formatValues(res);
+      this._pricesProvider.getPriceBySymbol(this._coinSymbol)
+        .subscribe(res => {
+          this._prices = this.formatValues(res);
 
-        this._chart = new Chart({
-          chart: {
-            type: 'line'
-          },
-          title: {
-            text: 'Crypto Money'
-          },
-          credits: {
-            enabled: false
-          },
-          series: [{
-            name: this._coinSymbol,
-            data: this._prices
-          }]
+          this._chart = new Chart({
+            chart: {
+              type: 'line'
+            },
+            title: {
+              text: 'Crypto Money'
+            },
+            credits: {
+              enabled: false
+            },
+            series: [{
+              name: this._coinSymbol,
+              data: this._prices
+            }]
+          });
         });
-      });
+    }
   }
 
   formatValues(values) {

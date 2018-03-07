@@ -14,4 +14,10 @@ export class PRICESProvider {
       .create(2000)
       .flatMap(() => this.client.get(`https://api.binance.com/api/v3/ticker/price`));
   }
+
+  public getPriceBySymbol(symbol: string) {
+    return IntervalObservable
+      .create(2000)
+      .flatMap(() => this.client.get(`https://api.binance.com/api/v3/ticker/price?symbol=${symbol}`));
+  }
 }
