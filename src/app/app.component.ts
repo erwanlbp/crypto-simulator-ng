@@ -10,6 +10,7 @@ import * as _ from 'underscore';
 export class AppComponent implements OnInit {
 
   favoriteCoins = {'LTCETH': 0, 'TRXETH': 0, 'QSPETH': 0};
+  private _coinSymbol: string = 'TRXETH';
 
   constructor(private pricesProvider: PRICESProvider) {
   }
@@ -23,5 +24,4 @@ export class AppComponent implements OnInit {
       this.favoriteCoins[symbol] = this.pricesProvider.getLastPrice$(symbol);
     });
   }
-
 }

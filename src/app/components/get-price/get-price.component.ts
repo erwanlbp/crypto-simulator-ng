@@ -14,7 +14,7 @@ import {Subscription} from 'rxjs/Subscription';
 })
 export class GetPriceComponent implements OnInit, OnDestroy {
 
-  @Output() coinSymbolEmitter: EventEmitter<Observable<string>>;
+  @Output() coinSymbolEmitter: EventEmitter<Observable<string>> = new EventEmitter<Observable<string>>();
   coinSymbol$: Observable<string>;
   requetPrices: Subscription;
 
@@ -27,13 +27,13 @@ export class GetPriceComponent implements OnInit, OnDestroy {
 
   public getPrices() {
     IntervalObservable
-      .create(5000)
+      .create(1000)
       .subscribe(
         () => {
           this.requetPrices = this.client.get(`https://api.binance.com/api/v3/ticker/price?`)
             .subscribe(
               (coins: any[]) => coins.forEach((c: any) => {
-                this.pricesProvider.updatePrices(c.symbol, c.price);
+                // this.pricesProvider.updatePrices(c.symbol, c.price);
               })
             );
         });

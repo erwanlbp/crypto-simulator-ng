@@ -15,6 +15,8 @@ import {PRICESProvider} from './providers/prices.provider';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MdToolbarModule} from '@angular2-material/toolbar';
 import {FireBalanceProvider} from './providers/fire-balance.provider';
+import {ChartModule} from 'angular-highcharts';
+import {CryptoChartComponent} from './components/crypto-chart/crypto-chart.component';
 import {NgPipesModule} from 'ngx-pipes';
 
 
@@ -23,6 +25,7 @@ import {NgPipesModule} from 'ngx-pipes';
     AppComponent,
     FireOrderComponent,
     FireBalanceComponent,
+    CryptoChartComponent,
     GetPriceComponent
   ],
   imports: [
@@ -35,7 +38,8 @@ import {NgPipesModule} from 'ngx-pipes';
     AngularFireStorageModule, // imports firebase/storage only needed for storage features
     BrowserAnimationsModule,
     MdToolbarModule,
-    NgPipesModule
+    NgPipesModule,
+    ChartModule
   ],
   providers: [
     PRICESProvider,
