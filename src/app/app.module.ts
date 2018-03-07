@@ -10,7 +10,8 @@ import {AngularFirestoreModule} from 'angularfire2/firestore';
 import {AngularFireAuthModule} from 'angularfire2/auth';
 import {AngularFireStorageModule} from 'angularfire2/storage';
 import {FireOrderComponent} from './components/fire-order/fire-order.component';
-import { FireBalanceComponent } from './components/fire-balance/fire-balance.component';
+import {FireBalanceComponent} from './components/fire-balance/fire-balance.component';
+import {FireBalanceProvider} from './providers/fire-balance/fire-balance.provider';
 
 
 @NgModule({
@@ -27,7 +28,7 @@ import { FireBalanceComponent } from './components/fire-balance/fire-balance.com
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features,
     AngularFireStorageModule // imports firebase/storage only needed for storage features
   ],
-  providers: [],
+  providers: [FireBalanceProvider],
   bootstrap: [AppComponent]
 })
 export class AppModule {
