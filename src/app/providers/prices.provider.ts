@@ -1,4 +1,5 @@
 import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs/Observable';
 
 @Injectable()
 export class PRICESProvider {
@@ -13,4 +14,7 @@ export class PRICESProvider {
     PRICESProvider.prices[coinSymbol] = [...PRICESProvider.prices[coinSymbol], value];
   }
 
+  public getValues$(symbol: string): Observable<any> {
+    return Observable.of(PRICESProvider.prices[symbol]);
+  }
 }

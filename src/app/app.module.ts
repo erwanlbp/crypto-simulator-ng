@@ -13,6 +13,8 @@ import {FireOrderComponent} from './components/fire-order/fire-order.component';
 import {GetPriceComponent} from './components/get-price/get-price.component';
 import {HttpClientModule} from '@angular/common/http';
 import {PRICESProvider} from './providers/prices.provider';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MdToolbarModule} from '@angular2-material/toolbar';
 
 
 @NgModule({
@@ -28,7 +30,9 @@ import {PRICESProvider} from './providers/prices.provider';
     AngularFireModule.initializeApp(environment.firebase), // imports firebase/app needed for everything
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features,
-    AngularFireStorageModule // imports firebase/storage only needed for storage features
+    AngularFireStorageModule, // imports firebase/storage only needed for storage features
+    BrowserAnimationsModule,
+    MdToolbarModule,
   ],
   providers: [
     PRICESProvider
