@@ -1,5 +1,6 @@
 interface Order {
   symbol: string;
-  quantity: number;
+  quantityBuy: number;
+  quantitySell: number;
   date: Date;
 }

@@ -11,14 +11,14 @@ import {PRICESProvider} from '../../providers/prices.provider';
 export class FireOrderComponent implements OnInit {
   coin: string;
   coinFrom: string;
-  quantityCoin: number = 0;
-  quantityCoinFrom: number = 0;
+  quantityBuy: number = 0;
+  quantitySell: number = 0;
   symbol: string;
   symbolPrice: number = -1;
   email: string = 'erwan.lbp@gmail.com';
 
   constructor(private db: AngularFirestore,
-              private balances$: FireBalanceProvider,
+              private balancesProvider: FireBalanceProvider,
               private pricesProvider: PRICESProvider) {
   }
 
@@ -30,28 +30,33 @@ export class FireOrderComponent implements OnInit {
       return;
     }
 
-    this.balances$.getBalances(this.email)
+    this.balancesProvider.getBalances(this.email)
       .subscribe((e: Balance[]) => {
         const balanceArr = e.filter(bal => this.symbol.endsWith(bal.coin));
         if (balanceArr.length === 0) {
           return;
         }
-        this.quantityCoinFrom = percent * balanceArr[0].balance;
-        this.quantityCoin = this.quantityCoinFrom / this.symbolPrice;
+        this.quantitySell = percent * balanceArr[0].balance;
+        this.quantityBuy = this.quantitySell / this.symbolPrice;
       });
   }
 
   placeOrder() {
-
+    this.updateSymbolPrice();
+    const order: Order = {
+      'symbol': this.symbol,
+      'quantityBuy': this.quantitySell / this.symbolPrice,
+      'quantitySell': this.quantitySell,
+      'date': new Date()
+    };
+    this.db.collection(`/people/${this.email}/orders`).add(order);
+    this.balancesProvider.changeBalance(this.email, order);
   }
 
-  priceOfSymbol() {
+  updateSymbolPrice() {
     this.pricesProvider.getLastPrice(this.symbol)
       .subscribe((e: any) => {
-        console.log(e);
-        if (e['price']) {
-          this.symbolPrice = e.price;
-        }
+        this.symbolPrice = (e['price']) ? e.price : -1;
       });
   }
 
@@ -60,10 +65,10 @@ export class FireOrderComponent implements OnInit {
       return;
     }
 
-    this.balances$.getBalances(this.email)
+    this.balancesProvider.getBalances(this.email)
       .subscribe((e: Balance[]) => {
         const balanceArr = e.filter(bal => this.symbol.endsWith(bal.coin));
-        if (balanceArr.length !== 0) {
+        if (balanceArr && balanceArr.length !== 0) {
           this.coinFrom = balanceArr[0].coin;
           this.coin = this.symbol.split(this.coinFrom)[0];
         } else {
@@ -75,6 +80,6 @@ export class FireOrderComponent implements OnInit {
 
   symbolChanged() {
     this.splitSymbol();
-    this.priceOfSymbol();
+    this.updateSymbolPrice();
   }
 }
