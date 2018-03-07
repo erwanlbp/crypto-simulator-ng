@@ -10,8 +10,14 @@
     </div>
   </div>
 
+  <div>
+    <div class="favoriteCoins" *ngFor="let symbol of favoriteVariations | keys">
+      {{(favoriteVariations[symbol] | async) }}
+    </div>
+  </div>
 </md-toolbar>
 
+<app-get-price (coinSymbolEmitter)="emitSymbol($event)"></app-get-price>
 <app-crypto-chart [coinSymbol]="_coinSymbol"></app-crypto-chart>
 
 <app-fire-balance></app-fire-balance>

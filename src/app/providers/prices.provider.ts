@@ -11,13 +11,28 @@ export class PRICESProvider {
 
   static prices = {};
 
+  private _currentCoin = 'TRXETH';
+
   constructor(private client: HttpClient) {
   }
 
-  getPrices(): Observable<any> {
+  get currentCoin() {
+    return this._currentCoin;
+  }
+
+  set currentCoin(coin: string) {
+    this._currentCoin = coin;
+  }
+
+  getPrices(timeToRefresh): Observable<any> {
     return IntervalObservable
-      .create(1000)
+      .create(timeToRefresh)
       .flatMap(() => this.client.get(`https://api.binance.com/api/v3/ticker/price`));
+  }
+
+  getLastPrice$(symbol, timeToRefresh): Observable<any> {
+    return this.getPrices(timeToRefresh)
+      .map(coins => _.find(coins, e => e.symbol === symbol));
   }
 
   getLastPrice(symbol): Observable<any> {
@@ -30,7 +45,7 @@ export class PRICESProvider {
 
   public getPricesBySymbolForChart(symbol: string): Observable<any> {
     return IntervalObservable
-      .create(10000)
+      .create(5000)
       .flatMap(() => this.client.get(`https://api.binance.com/api/v3/ticker/price`))
       .map((coins: any) => {
         coins.forEach((coin: any) => {
