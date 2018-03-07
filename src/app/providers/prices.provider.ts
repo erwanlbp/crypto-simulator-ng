@@ -5,7 +5,11 @@ export class PRICESProvider {
 
   public static prices = {};
 
-  public updatePrices(value, coinSymbol) {
+  public updatePrices(coinSymbol, value) {
+    if (!PRICESProvider.prices[coinSymbol]) {
+      PRICESProvider.prices[coinSymbol] = [];
+    }
+
     PRICESProvider.prices[coinSymbol] = [...PRICESProvider.prices[coinSymbol], value];
   }
 
