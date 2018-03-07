@@ -9,13 +9,16 @@ import {AngularFireModule} from 'angularfire2';
 import {AngularFirestoreModule} from 'angularfire2/firestore';
 import {AngularFireAuthModule} from 'angularfire2/auth';
 import {AngularFireStorageModule} from 'angularfire2/storage';
+import { ChartModule } from 'angular-highcharts';
 import { FireOrderComponent } from './components/fire-order/fire-order.component';
+import { CryptoChartComponent } from './components/crypto-chart/crypto-chart.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    FireOrderComponent
+    FireOrderComponent,
+    CryptoChartComponent
   ],
   imports: [
     BrowserModule,
@@ -23,7 +26,8 @@ import { FireOrderComponent } from './components/fire-order/fire-order.component
     AngularFireModule.initializeApp(environment.firebase), // imports firebase/app needed for everything
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features,
-    AngularFireStorageModule // imports firebase/storage only needed for storage features
+    AngularFireStorageModule, // imports firebase/storage only needed for storage features
+    ChartModule
   ],
   providers: [],
   bootstrap: [AppComponent]
