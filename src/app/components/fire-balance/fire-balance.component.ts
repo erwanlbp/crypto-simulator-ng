@@ -1,5 +1,6 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, Injectable, Input, OnInit} from '@angular/core';
 import {AngularFirestore} from 'angularfire2/firestore';
+import {FireBalanceProvider} from '../../providers/fire-balance/fire-balance.provider';
 import {Observable} from 'rxjs/Observable';
 
 @Component({
@@ -7,25 +8,15 @@ import {Observable} from 'rxjs/Observable';
   templateUrl: './fire-balance.component.html',
   styleUrls: ['./fire-balance.component.css']
 })
+@Injectable()
 export class FireBalanceComponent implements OnInit {
-  @Output() emitter = new EventEmitter();
-  balances$: Observable<any[]>;
   @Input() email: string = 'erwan.lbp@gmail.com';
+  balances$: Observable<Balance[]>;
 
-  constructor(private db: AngularFirestore) {
+  constructor(private db: AngularFirestore, private balancesService: FireBalanceProvider) {
   }
 
   ngOnInit() {
-    this.balances$ = this.db.collection(`/people/${this.email}/balances`).snapshotChanges().map(balances => {
-      return balances.map(b => {
-        const value = b.payload.doc.data();
-        const name = b.payload.doc.id;
-        return {name, ...value};
-      });
-    });
-  }
-
-  emit() {
-    this.emitter.emit(this.balances$);
+    this.balances$ = this.balancesService.getBalances(this.email);
   }
 }

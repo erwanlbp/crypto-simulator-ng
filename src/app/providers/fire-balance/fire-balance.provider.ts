@@ -8,12 +8,12 @@ export class FireBalanceProvider {
   constructor(private db: AngularFirestore) {
   }
 
-  getBalances(email: string): Observable<any[]> {
+  getBalances(email: string): Observable<Balance[]> {
     return this.db.collection(`/people/${email}/balances`).snapshotChanges().map(balances => {
       return balances.map(b => {
         const value = b.payload.doc.data();
-        const name = b.payload.doc.id;
-        return {name, ...value};
+        const coin = b.payload.doc.id;
+        return {'coin': coin, 'balance': value.balance};
       });
     });
   }

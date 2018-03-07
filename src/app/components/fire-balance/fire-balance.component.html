@@ -3,7 +3,7 @@
     <legend>Balances</legend>
     <ul>
       <li *ngFor="let bal of balances$ | async">
-        {{bal.name}} : {{bal.balance}}
+        {{bal.coin}} : {{bal.balance}}
       </li>
     </ul>
   </fieldset>

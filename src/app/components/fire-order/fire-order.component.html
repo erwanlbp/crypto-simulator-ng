@@ -1,12 +1,13 @@
 <div>
-
+  <label for="symbol">Symbol :</label>
+  <input id="symbol" type="text" [(ngModel)]="symbol" placeholder="Exemple: TRX">
   <label for="quantity">Quantity :</label>
   <input id="quantity" type="number" [(ngModel)]="quantity">
   <button (click)="placeOrder()">Order!</button>
   <br/>
-  <button role="button" (click)="clicked(100)">100%</button>
-  <button role="button" (click)="clicked(75)">75%</button>
-  <button role="button" (click)="clicked(50)">50%</button>
-  <button role="button" (click)="clicked(25)">25%</button>
+  <button role="button" (click)="clicked(1)">100%</button>
+  <button role="button" (click)="clicked(0.75)">75%</button>
+  <button role="button" (click)="clicked(0.50)">50%</button>
+  <button role="button" (click)="clicked(0.25)">25%</button>
 
 </div>
