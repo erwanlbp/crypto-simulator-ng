@@ -33,7 +33,7 @@ export class GetPriceComponent implements OnInit, OnDestroy {
           this.requetPrices = this.client.get(`https://api.binance.com/api/v3/ticker/price?`)
             .subscribe(
               (coins: any[]) => coins.forEach((c: any) => {
-                this.pricesProvider.updatePrices(c.symbol, c.price);
+                // this.pricesProvider.updatePrices(c.symbol, c.price);
               })
             );
         });

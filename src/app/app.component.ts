@@ -7,9 +7,9 @@ import {Observable} from 'rxjs/Observable';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  private _coinSymbol$: Observable<string>;
+  private _coinSymbol: string = 'TRXETH';
 
-  emitCoinSymbol(symbol) {
+  /*emitCoinSymbol(symbol) {
     this._coinSymbol$ = symbol;
-  }
+  }*/
 }
