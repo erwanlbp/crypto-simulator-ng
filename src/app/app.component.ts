@@ -10,18 +10,23 @@ import * as _ from 'underscore';
 export class AppComponent implements OnInit {
 
   favoriteCoins = {'LTCETH': 0, 'TRXETH': 0, 'QSPETH': 0};
-  private _coinSymbol: string = 'TRXETH';
+  private _coinSymbol: string;
 
-  constructor(private pricesProvider: PRICESProvider) {
+  constructor(private _pricesProvider: PRICESProvider) {
+  }
+
+  emitSymbol(event) {
+    this._coinSymbol = event;
   }
 
   ngOnInit(): void {
+    this._coinSymbol = this._pricesProvider.currentCoin;
     this.getFavoritePrices();
   }
 
   public getFavoritePrices() {
     _.each(this.favoriteCoins, (value: number, symbol: string) => {
-      this.favoriteCoins[symbol] = this.pricesProvider.getLastPrice$(symbol);
+      this.favoriteCoins[symbol] = this._pricesProvider.getLastPrice$(symbol);
     });
   }
 }

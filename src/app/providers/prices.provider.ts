@@ -10,7 +10,16 @@ export class PRICESProvider {
 
   static prices = {};
 
-  constructor(private client: HttpClient) {
+  private _currentCoin = 'TRXETH';
+
+  constructor(private client: HttpClient) {}
+
+  get currentCoin() {
+    return this._currentCoin;
+  }
+
+  set currentCoin(coin: string) {
+    this._currentCoin = coin;
   }
 
   getPrices(): Observable<any> {
@@ -27,7 +36,7 @@ export class PRICESProvider {
 
   public getPricesBySymbolForChart(symbol: string): Observable<any> {
     return IntervalObservable
-      .create(10000)
+      .create(5000)
       .flatMap(() => this.client.get(`https://api.binance.com/api/v3/ticker/price`))
       .map((coins: any) => {
         coins.forEach((coin: any) => {
