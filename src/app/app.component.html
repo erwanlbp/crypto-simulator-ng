@@ -5,7 +5,9 @@
   <span class="fill-remaining-space"></span>
 
   <div>
-    <span>BTC price :</span>
+    <div *ngFor="let coin of favoriteCoins | keys">
+      {{coin}} : {{favoriteCoins[coin] | async | json}}
+    </div>
   </div>
 
 </md-toolbar>

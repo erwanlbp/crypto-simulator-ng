@@ -26,7 +26,6 @@ export class PRICESProvider {
     if (!PRICESProvider.prices[coinSymbol]) {
       PRICESProvider.prices[coinSymbol] = [];
     }
-
     PRICESProvider.prices[coinSymbol] = [...PRICESProvider.prices[coinSymbol], value];
   }
 

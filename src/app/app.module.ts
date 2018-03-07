@@ -9,12 +9,13 @@ import {AngularFireAuthModule} from 'angularfire2/auth';
 import {AngularFireStorageModule} from 'angularfire2/storage';
 import {FireOrderComponent} from './components/fire-order/fire-order.component';
 import {FireBalanceComponent} from './components/fire-balance/fire-balance.component';
-import {FireBalanceProvider} from './providers/fire-balance/fire-balance.provider';
 import {GetPriceComponent} from './components/get-price/get-price.component';
 import {HttpClientModule} from '@angular/common/http';
 import {PRICESProvider} from './providers/prices.provider';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MdToolbarModule} from '@angular2-material/toolbar';
+import {FireBalanceProvider} from './providers/fire-balance.provider';
+import {NgPipesModule} from 'ngx-pipes';
 
 
 @NgModule({
@@ -34,6 +35,7 @@ import {MdToolbarModule} from '@angular2-material/toolbar';
     AngularFireStorageModule, // imports firebase/storage only needed for storage features
     BrowserAnimationsModule,
     MdToolbarModule,
+    NgPipesModule
   ],
   providers: [
     PRICESProvider,
