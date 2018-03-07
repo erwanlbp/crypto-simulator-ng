@@ -26,7 +26,7 @@ export class AppComponent implements OnInit {
 
   public getFavoritePrices() {
     _.each(this.favoriteCoins, (value: number, symbol: string) => {
-      this.favoriteCoins[symbol] = this._pricesProvider.getLastPrice$(symbol);
+      this.favoriteCoins[symbol] = this._pricesProvider.getLastPrice(symbol);
     });
   }
 }

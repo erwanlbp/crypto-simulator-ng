@@ -4,6 +4,7 @@ import {IntervalObservable} from 'rxjs/observable/IntervalObservable';
 import {HttpClient} from '@angular/common/http';
 import 'rxjs/add/operator/take';
 import 'rxjs/add/operator/debounce';
+import * as _ from 'underscore';
 
 @Injectable()
 export class PRICESProvider {
