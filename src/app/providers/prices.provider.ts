@@ -2,7 +2,6 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {IntervalObservable} from 'rxjs/observable/IntervalObservable';
 import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs/Observable';
 
 @Injectable()
 export class PRICESProvider {

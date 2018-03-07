@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {PRICESProvider} from './providers/prices.provider';
 import * as _ from 'underscore';
+import {Observable} from 'rxjs/Observable';
 
 @Component({
   selector: 'app-root',
@@ -10,6 +11,7 @@ import * as _ from 'underscore';
 export class AppComponent implements OnInit {
 
   favoriteCoins = {'LTCETH': 0, 'TRXETH': 0, 'QSPETH': 0};
+  favoriteCoinsValues = {};
 
   constructor(private pricesProvider: PRICESProvider) {
   }
@@ -20,7 +22,7 @@ export class AppComponent implements OnInit {
 
   public getFavoritePrices() {
     _.each(this.favoriteCoins, (value: number, symbol: string) => {
-      this.favoriteCoins[symbol] = this.pricesProvider.getValues$(symbol);
+      this.favoriteCoins[symbol] = Observable.of(0); // this.pricesProvider.getValues$(symbol);
     });
   }
 
