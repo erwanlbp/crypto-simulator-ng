@@ -5,8 +5,8 @@
   <span class="fill-remaining-space"></span>
 
   <div>
-    <div *ngFor="let coin of favoriteCoins | keys">
-      {{coin}} : {{favoriteCoins[coin] | async | json}}
+    <div class="favoriteCoins" *ngFor="let coin of favoriteCoins | keys">
+      {{coin}} : {{(favoriteCoins[coin] | async)?.price }}
     </div>
   </div>
 
