@@ -10,6 +10,11 @@
     </div>
   </div>
 
+  <div>
+    <div class="favoriteCoins" *ngFor="let symbol of favoriteVariations | keys">
+      {{(favoriteVariations[symbol] | async) }}
+    </div>
+  </div>
 </md-toolbar>
 
 <app-crypto-chart [coinSymbol]="_coinSymbol"></app-crypto-chart>

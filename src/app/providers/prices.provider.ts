@@ -13,16 +13,15 @@ export class PRICESProvider {
   constructor(private client: HttpClient) {
   }
 
-  getPrices(): Observable<any> {
+  getPrices(timeToRefresh): Observable<any> {
     return IntervalObservable
-      .create(1000)
+      .create(timeToRefresh)
       .flatMap(() => this.client.get(`https://api.binance.com/api/v3/ticker/price`));
   }
 
-  getLastPrice$(symbol): Observable<any> {
-    return this.getPrices()
-      .map(coins => _.find(coins, e => e.symbol === symbol))
-      .take(1);
+  getLastPrice$(symbol, timeToRefresh): Observable<any> {
+    return this.getPrices(timeToRefresh)
+      .map(coins => _.find(coins, e => e.symbol === symbol));
   }
 
   public getPricesBySymbolForChart(symbol: string): Observable<any> {
