@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {IntervalObservable} from 'rxjs/observable/IntervalObservable';
 import {HttpClient} from '@angular/common/http';
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 
 @Injectable()
 export class PRICESProvider {
@@ -23,13 +24,15 @@ export class PRICESProvider {
   }
 
   public updatePrices(coinSymbol, value) {
+    const emitter: BehaviorSubject<any> = new BehaviorSubject({});
+
     if (!PRICESProvider.prices[coinSymbol]) {
       PRICESProvider.prices[coinSymbol] = [];
     }
 
     PRICESProvider.prices[coinSymbol] = [...PRICESProvider.prices[coinSymbol], value];
 
-    console.log('test');
+    emitter.next(PRICESProvider.prices[coinSymbol]);
   }
 
   public getValues$(symbol: string): Observable<any> {

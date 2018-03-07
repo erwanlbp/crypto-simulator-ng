@@ -22,6 +22,27 @@ export class CryptoChartComponent {
     if (symbol) {
       this._coinSymbol = symbol;
     }
+
+    this._pricesProvider.getValues$(this._coinSymbol)
+      .subscribe(res => {
+        this._prices = this.formatValues(res);
+
+        this._chart = new Chart({
+          chart: {
+            type: 'line'
+          },
+          title: {
+            text: 'Crypto Money'
+          },
+          credits: {
+            enabled: false
+          },
+          series: [{
+            name: this._coinSymbol,
+            data: this._prices
+          }]
+        });
+      });
   }
 
   formatValues(values) {
@@ -29,7 +50,7 @@ export class CryptoChartComponent {
   }
 
   ngOnInit() {
-      this._pricesProvider.getValues$(this._coinSymbol)
+      /*this._pricesProvider.getValues$(this._coinSymbol)
         .subscribe(res => {
           this._prices = this.formatValues(res);
 
@@ -50,8 +71,7 @@ export class CryptoChartComponent {
               data: this._prices
             }]
           });
-          // this._chart.addPoint()
-        });
+        });*/
 
   }
 
