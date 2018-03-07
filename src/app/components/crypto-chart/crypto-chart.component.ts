@@ -1,7 +1,7 @@
 import {Component, Input} from '@angular/core';
 import {Chart} from 'angular-highcharts';
 import {PRICESProvider} from '../../providers/prices.provider';
-import {Observable} from 'rxjs/Observable';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-crypto-chart',
@@ -13,6 +13,8 @@ export class CryptoChartComponent {
   private _chart: Chart = new Chart();
   private _prices: any;
 
+  private _sub: Subscription;
+
   constructor(private _pricesProvider: PRICESProvider) {}
 
   @Input()
@@ -20,24 +22,19 @@ export class CryptoChartComponent {
     if (symbol) {
       this._coinSymbol = symbol;
 
-      this._pricesProvider.getPricesBySymbolForChart(this._coinSymbol)
+      this.initChart();
+
+      if (this._sub) this._sub.unsubscribe();
+
+      this._sub = this._pricesProvider.getPricesBySymbolForChart(this._coinSymbol)
         .subscribe(res => {
           this._prices = this.formatValues(res);
 
-          this._chart = new Chart({
-            chart: {
-              type: 'line'
-            },
-            title: {
-              text: 'Crypto Money'
-            },
-            credits: {
-              enabled: false
-            },
-            series: [{
-              name: this._coinSymbol,
-              data: this._prices
-            }]
+          this._chart.removeSerie(0);
+
+          this._chart.addSerie({
+            name: this._coinSymbol,
+            data: this._prices
           });
         });
     }
@@ -47,29 +44,22 @@ export class CryptoChartComponent {
     if (values) return values.map(value => Number(value));
   }
 
-  ngOnInit() {
-      /*this._pricesProvider.getValues$(this._coinSymbol)
-        .subscribe(res => {
-          this._prices = this.formatValues(res);
-
-          console.log(this._prices)
-
-          this._chart = new Chart({
-            chart: {
-              type: 'line'
-            },
-            title: {
-              text: 'Crypto Money'
-            },
-            credits: {
-              enabled: false
-            },
-            series: [{
-              name: this._coinSymbol,
-              data: this._prices
-            }]
-          });
-        });*/
+  initChart() {
+    this._chart = new Chart({
+      chart: {
+        type: 'line'
+      },
+      title: {
+        text: 'Crypto Simulator'
+      },
+      credits: {
+        enabled: false
+      },
+      series: [{
+        name: 'Values in coming',
+        data: []
+      }]
+    });
 
   }
 

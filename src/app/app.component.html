@@ -17,5 +17,9 @@
   </div>
 </md-toolbar>
 
+<app-get-price (coinSymbolEmitter)="emitSymbol($event)"></app-get-price>
 <app-crypto-chart [coinSymbol]="_coinSymbol"></app-crypto-chart>
 
+<app-fire-balance></app-fire-balance>
+
+<app-fire-order></app-fire-order>
