@@ -3,7 +3,7 @@ import {IntervalObservable} from 'rxjs/observable/IntervalObservable';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/take';
-import * as _ from 'underscore';
+import 'rxjs/add/operator/debounce';
 
 @Injectable()
 export class PRICESProvider {
@@ -17,9 +17,12 @@ export class PRICESProvider {
       .flatMap(() => this.client.get(`https://api.binance.com/api/v3/ticker/price`));
   }
 
-  getLastPrice(symbol) {
-    return this.getPrices()
-      .map(coins => _.find(coins, e => e.symbol === symbol))
+  getLastPrice(symbol): Observable<any> {
+    return this.client.get(`https://api.binance.com/api/v3/ticker/price?symbol=${symbol}`);
+  }
+
+  getPricesOnce(): Observable<any> {
+    return this.client.get(`https://api.binance.com/api/v3/ticker/price`)
       .take(1);
   }
 }

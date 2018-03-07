@@ -9,7 +9,7 @@ import {AngularFireAuthModule} from 'angularfire2/auth';
 import {AngularFireStorageModule} from 'angularfire2/storage';
 import {FireOrderComponent} from './components/fire-order/fire-order.component';
 import {FireBalanceComponent} from './components/fire-balance/fire-balance.component';
-import {FireBalanceProvider} from './providers/fire-balance/fire-balance.provider';
+import {FireBalanceProvider} from './providers/fire-balance.provider';
 import {GetPriceComponent} from './components/get-price/get-price.component';
 import {HttpClientModule} from '@angular/common/http';
 import {PRICESProvider} from './providers/prices.provider';
