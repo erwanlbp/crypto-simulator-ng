@@ -1,3 +1,12 @@
-<p>
-  fire-order works!
-</p>
+<div>
+
+  <label for="quantity">Quantity :</label>
+  <input id="quantity" type="number" [(ngModel)]="quantity">
+  <button (click)="placeOrder()">Order!</button>
+  <br/>
+  <button role="button" (click)="clicked(100)">100%</button>
+  <button role="button" (click)="clicked(75)">75%</button>
+  <button role="button" (click)="clicked(50)">50%</button>
+  <button role="button" (click)="clicked(25)">25%</button>
+
+</div>

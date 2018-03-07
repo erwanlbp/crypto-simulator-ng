@@ -9,7 +9,7 @@ import {AngularFireModule} from 'angularfire2';
 import {AngularFirestoreModule} from 'angularfire2/firestore';
 import {AngularFireAuthModule} from 'angularfire2/auth';
 import {AngularFireStorageModule} from 'angularfire2/storage';
-import { FireOrderComponent } from './components/fire-order/fire-order.component';
+import {FireOrderComponent} from './components/fire-order/fire-order.component';
 
 
 @NgModule({

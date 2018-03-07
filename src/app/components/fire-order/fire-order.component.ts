@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-fire-order',
@@ -6,10 +6,20 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./fire-order.component.css']
 })
 export class FireOrderComponent implements OnInit {
+  price: number;
+  quantity: number;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
   }
 
+  clicked(percent: number) {
+
+  }
+
+  placeOrder() {
+
+  }
 }
