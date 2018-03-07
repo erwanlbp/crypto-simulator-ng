@@ -1,7 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-
-
 import {AppComponent} from './app.component';
 import {FormsModule} from '@angular/forms';
 import {environment} from '../environments/environment';
@@ -15,11 +13,15 @@ import { CryptoChartComponent } from './components/crypto-chart/crypto-chart.com
 import {GetPriceComponent} from './components/get-price/get-price.component';
 import {HttpClientModule} from '@angular/common/http';
 import {PRICESProvider} from './providers/prices.provider';
+import {FireBalanceComponent} from './components/fire-balance/fire-balance.component';
+import {FireBalanceProvider} from './providers/fire-balance/fire-balance.provider';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     FireOrderComponent,
+    FireBalanceComponent,
     CryptoChartComponent,
     GetPriceComponent
   ],
@@ -34,7 +36,8 @@ import {PRICESProvider} from './providers/prices.provider';
     ChartModule
   ],
   providers: [
-    PRICESProvider
+    PRICESProvider,
+    FireBalanceProvider
   ],
   bootstrap: [AppComponent]
 })
