@@ -9,23 +9,30 @@ import {AngularFireModule} from 'angularfire2';
 import {AngularFirestoreModule} from 'angularfire2/firestore';
 import {AngularFireAuthModule} from 'angularfire2/auth';
 import {AngularFireStorageModule} from 'angularfire2/storage';
-import { FireOrderComponent } from './components/fire-order/fire-order.component';
+import {FireOrderComponent} from './components/fire-order/fire-order.component';
+import {GetPriceComponent} from './components/get-price/get-price.component';
+import {HttpClientModule} from '@angular/common/http';
+import {PRICESProvider} from './providers/prices.provider';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    FireOrderComponent
+    FireOrderComponent,
+    GetPriceComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    HttpClientModule,
     AngularFireModule.initializeApp(environment.firebase), // imports firebase/app needed for everything
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features,
     AngularFireStorageModule // imports firebase/storage only needed for storage features
   ],
-  providers: [],
+  providers: [
+    PRICESProvider
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
