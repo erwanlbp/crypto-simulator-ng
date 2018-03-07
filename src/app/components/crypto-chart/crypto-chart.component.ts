@@ -20,7 +20,7 @@ export class CryptoChartComponent {
     if (symbol) {
       this._coinSymbol = symbol;
 
-      this._pricesProvider.getPriceBySymbol(this._coinSymbol)
+      this._pricesProvider.getPricesBySymbolForChart(this._coinSymbol)
         .subscribe(res => {
           this._prices = this.formatValues(res);
 
