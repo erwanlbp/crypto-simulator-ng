@@ -1,0 +1,10 @@
+<div>
+  <fieldset>
+    <legend>Balances</legend>
+    <ul>
+      <li *ngFor="let bal of balances$ | async">
+        {{bal.coin}} : {{bal.balance}}
+      </li>
+    </ul>
+  </fieldset>
+</div>
