@@ -7,12 +7,14 @@ import {AngularFireModule} from 'angularfire2';
 import {AngularFirestoreModule} from 'angularfire2/firestore';
 import {AngularFireAuthModule} from 'angularfire2/auth';
 import {AngularFireStorageModule} from 'angularfire2/storage';
-import {FireOrderComponent} from './components/fire-order/fire-order.component';
-import {FireBalanceComponent} from './components/fire-balance/fire-balance.component';
-import {FireBalanceProvider} from './providers/fire-balance/fire-balance.provider';
+import { ChartModule } from 'angular-highcharts';
+import { FireOrderComponent } from './components/fire-order/fire-order.component';
+import { CryptoChartComponent } from './components/crypto-chart/crypto-chart.component';
 import {GetPriceComponent} from './components/get-price/get-price.component';
 import {HttpClientModule} from '@angular/common/http';
 import {PRICESProvider} from './providers/prices.provider';
+import {FireBalanceComponent} from './components/fire-balance/fire-balance.component';
+import {FireBalanceProvider} from './providers/fire-balance.provider';
 
 
 @NgModule({
@@ -20,6 +22,7 @@ import {PRICESProvider} from './providers/prices.provider';
     AppComponent,
     FireOrderComponent,
     FireBalanceComponent,
+    CryptoChartComponent,
     GetPriceComponent
   ],
   imports: [
@@ -29,7 +32,8 @@ import {PRICESProvider} from './providers/prices.provider';
     AngularFireModule.initializeApp(environment.firebase), // imports firebase/app needed for everything
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features,
-    AngularFireStorageModule // imports firebase/storage only needed for storage features
+    AngularFireStorageModule, // imports firebase/storage only needed for storage features
+    ChartModule
   ],
   providers: [
     PRICESProvider,

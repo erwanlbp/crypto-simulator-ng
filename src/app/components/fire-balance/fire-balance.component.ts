@@ -1,7 +1,7 @@
 import {Component, Injectable, Input, OnInit} from '@angular/core';
 import {AngularFirestore} from 'angularfire2/firestore';
-import {FireBalanceProvider} from '../../providers/fire-balance/fire-balance.provider';
 import {Observable} from 'rxjs/Observable';
+import {FireBalanceProvider} from '../../providers/fire-balance.provider';
 
 @Component({
   selector: 'app-fire-balance',

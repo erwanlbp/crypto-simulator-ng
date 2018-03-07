@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
+import {Observable} from 'rxjs/Observable';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app';
+  private _coinSymbol$: Observable<string>;
+
+  emitCoinSymbol(symbol) {
+    this._coinSymbol$ = symbol;
+  }
 }
