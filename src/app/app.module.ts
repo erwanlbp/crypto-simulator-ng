@@ -13,6 +13,11 @@ import {FireBalanceProvider} from './providers/fire-balance.provider';
 import {GetPriceComponent} from './components/get-price/get-price.component';
 import {HttpClientModule} from '@angular/common/http';
 import {PRICESProvider} from './providers/prices.provider';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MdToolbarModule} from '@angular2-material/toolbar';
+import {ChartModule} from 'angular-highcharts';
+import {CryptoChartComponent} from './components/crypto-chart/crypto-chart.component';
+import {NgPipesModule} from 'ngx-pipes';
 
 
 @NgModule({
@@ -20,6 +25,7 @@ import {PRICESProvider} from './providers/prices.provider';
     AppComponent,
     FireOrderComponent,
     FireBalanceComponent,
+    CryptoChartComponent,
     GetPriceComponent
   ],
   imports: [
@@ -29,7 +35,11 @@ import {PRICESProvider} from './providers/prices.provider';
     AngularFireModule.initializeApp(environment.firebase), // imports firebase/app needed for everything
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features,
-    AngularFireStorageModule // imports firebase/storage only needed for storage features
+    AngularFireStorageModule, // imports firebase/storage only needed for storage features
+    BrowserAnimationsModule,
+    MdToolbarModule,
+    NgPipesModule,
+    ChartModule
   ],
   providers: [
     PRICESProvider,

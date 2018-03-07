@@ -23,17 +23,22 @@
     "@angular/platform-browser": "^5.2.0",
     "@angular/platform-browser-dynamic": "^5.2.0",
     "@angular/router": "^5.2.0",
+    "@angular2-material/toolbar": "latest",
+    "angular-highcharts": "^5.2.10",
     "angularfire2": "^5.0.0-rc.6",
     "core-js": "^2.4.1",
     "firebase": "^4.10.1",
+    "highcharts": "^6.0.7",
     "rxjs": "^5.5.6",
     "underscore": "^1.8.3",
-    "zone.js": "^0.8.19"
+    "zone.js": "^0.8.19",
+    "ngx-pipes": "^2.1.2"
   },
   "devDependencies": {
     "@angular/cli": "~1.7.2",
     "@angular/compiler-cli": "^5.2.0",
     "@angular/language-service": "^5.2.0",
+    "@types/highcharts": "^5.0.19",
     "@types/jasmine": "~2.8.3",
     "@types/jasminewd2": "~2.0.2",
     "@types/node": "~6.0.60",
