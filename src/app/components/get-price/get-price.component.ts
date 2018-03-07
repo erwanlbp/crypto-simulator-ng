@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {IntervalObservable} from 'rxjs/observable/IntervalObservable';
 import {Observable} from 'rxjs/Observable';
@@ -14,7 +14,8 @@ import {Subscription} from 'rxjs/Subscription';
 })
 export class GetPriceComponent implements OnInit, OnDestroy {
 
-  @Output() coinSymbol: Observable<string>;
+  @Output() coinSymbolEmitter: EventEmitter<Observable<string>>;
+  coinSymbol$: Observable<string>;
   requetPrices: Subscription;
 
   constructor(private client: HttpClient, private pricesProvider: PRICESProvider) {
@@ -26,17 +27,20 @@ export class GetPriceComponent implements OnInit, OnDestroy {
 
   public getPrices() {
     IntervalObservable
-      .create(1000)
+      .create(5000)
       .subscribe(
         () => {
-          console.log('before get');
           this.requetPrices = this.client.get(`https://api.binance.com//api/v3/ticker/price?`)
             .subscribe(
-              (coins: any[]) => coins.forEach(c => {
+              (coins: any[]) => coins.forEach((c: any) => {
                 this.pricesProvider.updatePrices(c.symbol, c.price);
               })
             );
         });
+  }
+
+  public emitCoinSymbol() {
+    this.coinSymbolEmitter.emit(this.coinSymbol$);
   }
 
   ngOnDestroy() {
