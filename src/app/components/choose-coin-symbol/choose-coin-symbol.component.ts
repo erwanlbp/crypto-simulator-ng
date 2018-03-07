@@ -20,6 +20,4 @@ export class ChooseCoinSymbolComponent {
     this.coinSymbolEmitter.emit(this.coinSymbol);
   }
 
-  ngOnInit() {
-  }
 }
