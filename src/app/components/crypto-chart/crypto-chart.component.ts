@@ -1,6 +1,6 @@
 import {AfterViewInit, Component, Input} from '@angular/core';
-import { Chart } from 'angular-highcharts';
-import {Observable} from 'rxjs/Observable';
+import {Chart} from 'angular-highcharts';
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 
 @Component({
   selector: 'app-crypto-chart',
@@ -10,8 +10,10 @@ import {Observable} from 'rxjs/Observable';
 export class CryptoChartComponent implements AfterViewInit {
   private _coinSymbol: string;
   private _chart: Chart = new Chart();
+  private _prices$: BehaviorSubject<any> = new BehaviorSubject<any>({});
+  private _prices: any;
 
-  constructor(/*private _pricesProvider: PRICESProvider*/) {}
+  constructor() {}
 
   @Input()
   set coinSymbol(symbol: string) {
@@ -23,7 +25,7 @@ export class CryptoChartComponent implements AfterViewInit {
   }
 
   ngOnInit() {
-
+    this._prices$.next(this._prices);
   }
 
 
@@ -40,9 +42,9 @@ export class CryptoChartComponent implements AfterViewInit {
       },
       series: [{
         name: this._coinSymbol,
-        data: [1, 2, 3]
+        data: this._prices$.getValue()
       }]
-    });
+    })
   }
 
   ngOnDestroy() {
