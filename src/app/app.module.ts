@@ -10,12 +10,14 @@ import {AngularFirestoreModule} from 'angularfire2/firestore';
 import {AngularFireAuthModule} from 'angularfire2/auth';
 import {AngularFireStorageModule} from 'angularfire2/storage';
 import {FireOrderComponent} from './components/fire-order/fire-order.component';
+import { FireBalanceComponent } from './components/fire-balance/fire-balance.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    FireOrderComponent
+    FireOrderComponent,
+    FireBalanceComponent
   ],
   imports: [
     BrowserModule,
