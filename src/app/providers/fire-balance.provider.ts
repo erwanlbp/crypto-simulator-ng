@@ -26,15 +26,28 @@ export class FireBalanceProvider {
         const coins = {};
         const quantitiesBefore = {'buy': 0, 'sell': 0};
         e.forEach(bal => {
-          if (order.symbol.startsWith(bal.coin)) {
-            quantitiesBefore['buy'] = bal.balance;
-            coins['buy'] = bal.coin;
-            coins['sell'] = order.symbol.split(coins['buy'])[1];
-          }
-          if (order.symbol.endsWith(bal.coin)) {
-            coins['sell'] = bal.coin;
-            quantitiesBefore['sell'] = bal.balance;
-            coins['buy'] = order.symbol.split(coins['sell'])[0];
+          if (order.side === 'buy') {
+            if (order.symbol.startsWith(bal.coin)) {
+              quantitiesBefore['buy'] = bal.balance;
+              coins['buy'] = bal.coin;
+              coins['sell'] = order.symbol.split(coins['buy'])[1];
+            }
+            if (order.symbol.endsWith(bal.coin)) {
+              coins['sell'] = bal.coin;
+              quantitiesBefore['sell'] = bal.balance;
+              coins['buy'] = order.symbol.split(coins['sell'])[0];
+            }
+          } else {
+            if (order.symbol.endsWith(bal.coin)) {
+              quantitiesBefore['buy'] = bal.balance;
+              coins['buy'] = bal.coin;
+              coins['sell'] = order.symbol.split(coins['buy'])[0];
+            }
+            if (order.symbol.startsWith(bal.coin)) {
+              coins['sell'] = bal.coin;
+              quantitiesBefore['sell'] = bal.balance;
+              coins['buy'] = order.symbol.split(coins['sell'])[1];
+            }
           }
         });
         if (Object.keys(quantitiesBefore).length !== 2 || Object.keys(coins).length !== 2) {

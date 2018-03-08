@@ -4,16 +4,17 @@
   <div>
     <label for="symbol">Symbol :</label>
     <input id="symbol" type="text" [(ngModel)]="symbol" (ngModelChange)="symbolChanged()" placeholder="Exemple: TRX">
+    {{symbolPrice}}
   </div>
 
   <div>
     <button (click)="placeOrder('buy')">Buy!</button>
-    You will pay {{quantityCoinFrom}} {{coinFrom}} to receive {{quantityCoin}} {{coin}}
+    {{quantityCoinFromBuy}} {{coinFrom}} ==> {{quantityCoinBuy}} {{coin}}
   </div>
 
   <div>
     <button (click)="placeOrder('sell')">Sell!</button>
-    You will pay {{quantityCoin}} {{coin}} to receive {{quantityCoinFrom}} {{coinFrom}}
+    {{quantityCoinSell}} {{coin}} ==> {{quantityCoinFromSell}} {{coinFrom}}
   </div>
 
   <div>

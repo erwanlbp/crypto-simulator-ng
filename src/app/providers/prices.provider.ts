@@ -36,12 +36,15 @@ export class PRICESProvider {
   }
 
   getLastPrice(symbol): Observable<any> {
-    return this.client.get(`https://api.binance.com/api/v3/ticker/price?symbol=${symbol}`);
+    return this.client.get(`https://api.binance.com/api/v3/ticker/price?symbol=${symbol}`)
+      .debounceTime(700)
+      .take(1);
   }
 
   getPricesOnce(): Observable<any> {
     return this.client.get(`https://api.binance.com/api/v3/ticker/price`)
-      .debounceTime(700);
+      .debounceTime(700)
+      .take(1);
   }
 
   public getPricesBySymbolForChart(symbol: string): Observable<any> {

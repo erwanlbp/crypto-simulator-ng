@@ -11,10 +11,12 @@ import {PRICESProvider} from '../../providers/prices.provider';
 export class FireOrderComponent implements OnInit {
   coin: string;
   coinFrom: string;
-  quantityCoin: number = 0;
-  quantityCoinFrom: number = 0;
+  quantityCoinBuy: number = 0;
+  quantityCoinSell: number = 0;
+  quantityCoinFromBuy: number = 0;
+  quantityCoinFromSell: number = 0;
   symbol: string;
-  symbolPrice: number = -1;
+  symbolPrice: number = null;
   email: string = 'erwan.lbp@gmail.com';
 
   constructor(private db: AngularFirestore,
@@ -32,31 +34,50 @@ export class FireOrderComponent implements OnInit {
 
     this.balancesProvider.getBalances(this.email)
       .subscribe((e: Balance[]) => {
-        const balanceArr = e.filter(bal => this.symbol.endsWith(bal.coin));
-        if (balanceArr.length === 0) {
-          return;
-        }
-        this.quantityCoinFrom = percent * balanceArr[0].balance;
-        this.quantityCoin = this.quantityCoinFrom / this.symbolPrice;
+        const coins = {};
+        this.quantityCoinFromBuy = 0;
+        this.quantityCoinFromSell = 0;
+        this.quantityCoinBuy = 0;
+        this.quantityCoinSell = 0;
+        e.forEach(bal => {
+          if (this.symbol.endsWith(bal.coin)) {
+            this.quantityCoinFromBuy = percent * bal.balance;
+            this.quantityCoinBuy = this.quantityCoinFromBuy / this.symbolPrice;
+          }
+          if (this.symbol.startsWith(bal.coin)) {
+            this.quantityCoinSell = percent * bal.balance;
+            this.quantityCoinFromSell = this.quantityCoinSell * this.symbolPrice;
+          }
+        });
       });
   }
 
   placeOrder(side: string) {
     this.updateSymbolPrice();
 
-    switch (side) {
-      case 'buy':
-        break;
-      case 'sell':
-        break;
+    if (side !== 'buy' && side !== 'sell') {
+      return;
     }
 
     const order: Order = {
       'symbol': this.symbol,
-      'quantityBuy': this.quantityCoinFrom / this.symbolPrice,
-      'quantitySell': this.quantityCoinFrom,
+      'side': side,
+      'quantityBuy': 0,
+      'quantitySell': 0,
       'date': new Date()
     };
+
+    switch (side) {
+      case 'buy':
+        order.quantityBuy = this.quantityCoinBuy;
+        order.quantitySell = this.quantityCoinFromBuy;
+        break;
+      case 'sell':
+        order.quantitySell = this.quantityCoinSell;
+        order.quantityBuy = this.quantityCoinFromSell;
+        break;
+    }
+
     this.db.collection(`/people/${this.email}/orders`).add(order);
     this.balancesProvider.changeBalance(this.email, order);
   }
@@ -64,7 +85,7 @@ export class FireOrderComponent implements OnInit {
   updateSymbolPrice() {
     this.pricesProvider.getLastPrice(this.symbol)
       .subscribe((e: any) => {
-        this.symbolPrice = (e['price']) ? e.price : -1;
+        this.symbolPrice = (e['price']) ? e.price : null;
       });
   }
 
