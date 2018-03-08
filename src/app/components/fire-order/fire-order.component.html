@@ -1,21 +1,26 @@
-<div>
-  <label for="symbol">Symbol :</label>
-  <input id="symbol" type="text" [(ngModel)]="symbol" (ngModelChange)="symbolChanged()" placeholder="Exemple: TRX">
+<fieldset>
+  <legend>Orders</legend>
 
-  <br>
+  <div>
+    <label for="symbol">Symbol :</label>
+    <input id="symbol" type="text" [(ngModel)]="symbol" (ngModelChange)="symbolChanged()" placeholder="Exemple: TRX">
+  </div>
 
-  You will pay {{quantitySell}} {{coinFrom}} <br>
-  to receive {{quantityBuy}} {{coin}}
+  <div>
+    <button (click)="placeOrder('buy')">Buy!</button>
+    You will pay {{quantityCoinFrom}} {{coinFrom}} to receive {{quantityCoin}} {{coin}}
+  </div>
 
-  <br>
+  <div>
+    <button (click)="placeOrder('sell')">Sell!</button>
+    You will pay {{quantityCoin}} {{coin}} to receive {{quantityCoinFrom}} {{coinFrom}}
+  </div>
 
-  <button (click)="placeOrder()">Order!</button>
+  <div>
+    <button role="button" (click)="clicked(1)">100%</button>
+    <button role="button" (click)="clicked(0.75)">75%</button>
+    <button role="button" (click)="clicked(0.50)">50%</button>
+    <button role="button" (click)="clicked(0.25)">25%</button>
+  </div>
 
-  <br/>
-
-  <button role="button" (click)="clicked(1)">100%</button>
-  <button role="button" (click)="clicked(0.75)">75%</button>
-  <button role="button" (click)="clicked(0.50)">50%</button>
-  <button role="button" (click)="clicked(0.25)">25%</button>
-
-</div>
+</fieldset>

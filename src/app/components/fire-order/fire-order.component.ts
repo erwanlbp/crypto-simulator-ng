@@ -11,8 +11,8 @@ import {PRICESProvider} from '../../providers/prices.provider';
 export class FireOrderComponent implements OnInit {
   coin: string;
   coinFrom: string;
-  quantityBuy: number = 0;
-  quantitySell: number = 0;
+  quantityCoin: number = 0;
+  quantityCoinFrom: number = 0;
   symbol: string;
   symbolPrice: number = -1;
   email: string = 'erwan.lbp@gmail.com';
@@ -36,17 +36,25 @@ export class FireOrderComponent implements OnInit {
         if (balanceArr.length === 0) {
           return;
         }
-        this.quantitySell = percent * balanceArr[0].balance;
-        this.quantityBuy = this.quantitySell / this.symbolPrice;
+        this.quantityCoinFrom = percent * balanceArr[0].balance;
+        this.quantityCoin = this.quantityCoinFrom / this.symbolPrice;
       });
   }
 
-  placeOrder() {
+  placeOrder(side: string) {
     this.updateSymbolPrice();
+
+    switch (side) {
+      case 'buy':
+        break;
+      case 'sell':
+        break;
+    }
+
     const order: Order = {
       'symbol': this.symbol,
-      'quantityBuy': this.quantitySell / this.symbolPrice,
-      'quantitySell': this.quantitySell,
+      'quantityBuy': this.quantityCoinFrom / this.symbolPrice,
+      'quantitySell': this.quantityCoinFrom,
       'date': new Date()
     };
     this.db.collection(`/people/${this.email}/orders`).add(order);

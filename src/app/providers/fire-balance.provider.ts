@@ -20,20 +20,21 @@ export class FireBalanceProvider {
 
   changeBalance(email: string, order: Order) {
 
-    console.log(order.symbol);
-
     this.getBalances(email)
+      .take(1)
       .subscribe((e: Balance[]) => {
         const coins = {};
-        const quantitiesBefore = {};
+        const quantitiesBefore = {'buy': 0, 'sell': 0};
         e.forEach(bal => {
           if (order.symbol.startsWith(bal.coin)) {
             quantitiesBefore['buy'] = bal.balance;
             coins['buy'] = bal.coin;
+            coins['sell'] = order.symbol.split(coins['buy'])[1];
           }
           if (order.symbol.endsWith(bal.coin)) {
             coins['sell'] = bal.coin;
             quantitiesBefore['sell'] = bal.balance;
+            coins['buy'] = order.symbol.split(coins['sell'])[0];
           }
         });
         if (Object.keys(quantitiesBefore).length !== 2 || Object.keys(coins).length !== 2) {
@@ -41,7 +42,7 @@ export class FireBalanceProvider {
           return;
         }
         this.db.doc(`/people/${email}/balances/${coins['buy']}`).set({'balance': quantitiesBefore['buy'] + order.quantityBuy});
-        this.db.doc(`/people/${email}/balances/${coins['sell']}`).set({'balance': quantitiesBefore['sell'] + order.quantitySell});
+        this.db.doc(`/people/${email}/balances/${coins['sell']}`).set({'balance': quantitiesBefore['sell'] - order.quantitySell});
       });
   }
 }

@@ -3,7 +3,7 @@ import {Observable} from 'rxjs/Observable';
 import {IntervalObservable} from 'rxjs/observable/IntervalObservable';
 import {HttpClient} from '@angular/common/http';
 import 'rxjs/add/operator/take';
-import 'rxjs/add/operator/debounce';
+import 'rxjs/add/operator/debounceTime';
 import * as _ from 'underscore';
 
 @Injectable()
@@ -40,7 +40,8 @@ export class PRICESProvider {
   }
 
   getPricesOnce(): Observable<any> {
-    return this.client.get(`https://api.binance.com/api/v3/ticker/price`);
+    return this.client.get(`https://api.binance.com/api/v3/ticker/price`)
+      .debounceTime(700);
   }
 
   public getPricesBySymbolForChart(symbol: string): Observable<any> {
