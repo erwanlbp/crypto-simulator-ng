@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {AngularFirestore} from 'angularfire2/firestore';
 import {FireBalanceProvider} from '../../providers/fire-balance.provider';
 import {PRICESProvider} from '../../providers/prices.provider';
@@ -17,7 +17,7 @@ export class FireOrderComponent implements OnInit {
   quantityCoinFromSell: number = 0;
   symbol: string;
   symbolPrice: number = null;
-  email: string = 'erwan.lbp@gmail.com';
+  @Input() email: string;
 
   constructor(private db: AngularFirestore,
               private balancesProvider: FireBalanceProvider,

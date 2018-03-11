@@ -58,4 +58,14 @@ export class FireBalanceProvider {
         this.db.doc(`/people/${email}/balances/${coins['sell']}`).set({'balance': quantitiesBefore['sell'] - order.quantitySell});
       });
   }
+
+  checkNewUser(email: string) {
+    this.getBalances(email)
+      .take(1)
+      .subscribe((e: Balance[]) => {
+        if (e.length === 0) {
+          this.db.doc(`/people/${email}/balances/ETH`).set({'balance': 10});
+        }
+      });
+  }
 }

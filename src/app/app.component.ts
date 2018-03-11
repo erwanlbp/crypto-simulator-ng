@@ -16,12 +16,14 @@ export class AppComponent implements OnInit {
   favoritePrices = {'LTCETH': 0, 'TRXETH': 0, 'QSPETH': 0};
   favoriteVariations = {'LTCETH': '=', 'TRXETH': '=', 'QSPETH': '='};
   private _coinSymbol: string;
+  private _userEmail: string;
 
   constructor(private _pricesProvider: PRICESProvider) {
   }
 
   emitSymbol(event) {
-    this._coinSymbol = event;
+    this._coinSymbol = event.symbol;
+    this._userEmail = event.userEmail;
   }
 
   ngOnInit(): void {

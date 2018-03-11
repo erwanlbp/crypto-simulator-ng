@@ -1,5 +1,16 @@
 <div>
-  <input type="text" [(ngModel)]="coinSymbol">
+  <div>
+    <label for="userEmail">User email : </label>
+    <input id="userEmail" type="email" [(ngModel)]="userEmail">
+  </div>
 
-  <button (click)="emitCoinSymbol()"> Get chart and cool things </button>
+  <div>
+    <label for="coinSymbol">
+      Coin symbol :
+    </label>
+    <input id="coinSymbol" type="text" [(ngModel)]="coinSymbol">
+  </div>
+
+
+  <button (click)="checkNewUser(); emitIt()"> Get chart and cool things</button>
 </div>

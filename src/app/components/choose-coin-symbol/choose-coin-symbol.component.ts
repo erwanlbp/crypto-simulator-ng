@@ -2,6 +2,7 @@ import {Component, EventEmitter, Output} from '@angular/core';
 import {PRICESProvider} from '../../providers/prices.provider';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/do';
+import {FireBalanceProvider} from '../../providers/fire-balance.provider';
 
 @Component({
   selector: 'app-get-price',
@@ -10,14 +11,19 @@ import 'rxjs/add/operator/do';
 })
 export class ChooseCoinSymbolComponent {
 
-  @Output() coinSymbolEmitter: EventEmitter<string> = new EventEmitter<string>();
+  @Output() emitter: EventEmitter<any> = new EventEmitter<any>();
   coinSymbol: string;
+  userEmail: string = 'erwan.lbp@gmail.com';
 
-  constructor(private pricesProvider: PRICESProvider) {
+  constructor(private pricesProvider: PRICESProvider,
+              private balancesProvider: FireBalanceProvider) {
   }
 
-  public emitCoinSymbol() {
-    this.coinSymbolEmitter.emit(this.coinSymbol);
+  public emitIt() {
+    this.emitter.emit({'symbol': this.coinSymbol, 'userEmail': this.userEmail});
   }
 
+  checkNewUser() {
+    this.balancesProvider.checkNewUser(this.userEmail);
+  }
 }

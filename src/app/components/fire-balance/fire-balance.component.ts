@@ -1,4 +1,4 @@
-import {Component, Injectable, Input, OnInit} from '@angular/core';
+import {Component, Injectable, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {AngularFirestore} from 'angularfire2/firestore';
 import {FireBalanceProvider} from '../../providers/fire-balance.provider';
 import {Observable} from 'rxjs/Observable';
@@ -9,8 +9,9 @@ import {Observable} from 'rxjs/Observable';
   styleUrls: ['./fire-balance.component.css']
 })
 @Injectable()
-export class FireBalanceComponent implements OnInit {
-  @Input() email: string = 'erwan.lbp@gmail.com';
+export class FireBalanceComponent implements OnInit, OnChanges {
+
+  @Input() email: string;
   balances$: Observable<Balance[]>;
 
   constructor(private db: AngularFirestore,
@@ -18,6 +19,9 @@ export class FireBalanceComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
     this.balances$ = this.balancesService.getBalances(this.email);
   }
 }
